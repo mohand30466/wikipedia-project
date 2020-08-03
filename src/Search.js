@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import Axios from "axios";
 
 const Search = () => {
-  const [term, setterm] = useState("code");
+  const [term, setterm] = useState("programer");
   const [result, setresult] = useState([]);
   console.log(result);
 
@@ -21,19 +21,26 @@ const Search = () => {
       setresult(data.query.search);
     };
 
-    if (term) {
-      search();
-    }
+    const timeex = setTimeout(() => {
+        
+        if (term) {
+            search();
+          }
+    }, 1000);
+
+ 
   }, [term]);
 
   const wiki_data = result.map((item) => {
     return (
-      <div>
+      <div key={item.pageid}>
         <div>
           <h2>{item.title}</h2>
         </div>
         <div>
-          <p>{item.snippet}</p>
+         <a href={`https://en.wikipedia.org?curid=${item.pageid}`}><h2>Go</h2></a>
+          <span dangerouslySetInnerHTML={{__html: item.snippet}}></span>
+
         </div>
       </div>
     );
